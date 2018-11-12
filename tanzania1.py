@@ -19,7 +19,10 @@ from cartopy.io.shapereader import Reader
 from cartopy.feature import ShapelyFeature
 import cartopy.feature as cfeature
 
-def tanzania_plot(ax, high):   
+def tanzania_plot(ax, high, **kwargs):   
+    
+    no_x = kwargs.get('no_x', None)
+    no_y = kwargs.get('no_y', None)
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
@@ -30,12 +33,21 @@ def tanzania_plot(ax, high):
     
     ax.add_feature(cartopy.feature.BORDERS, linewidth = 0.5)
     # set up latitude and longtiude ticks and format
-    ax.set_yticks([-10, -6, -2], crs=ccrs.PlateCarree())
-    lat_formatter = LatitudeFormatter()
-    ax.yaxis.set_major_formatter(lat_formatter)
-    ax.set_xticks([29, 34, 39], crs=ccrs.PlateCarree())
-    lon_formatter = LongitudeFormatter()
-    ax.xaxis.set_major_formatter(lon_formatter)
+    
+    if no_y == True:
+        pass
+    else:
+        ax.set_yticks([-10, -6, -2], crs=ccrs.PlateCarree())
+        lat_formatter = LatitudeFormatter()
+        ax.yaxis.set_major_formatter(lat_formatter)
+    
+    if no_x == True:
+        pass
+    else:
+        ax.set_xticks([29, 34, 39], crs=ccrs.PlateCarree())
+        lon_formatter = LongitudeFormatter()
+        ax.xaxis.set_major_formatter(lon_formatter)
+        
     # add tanga shapefile
     ax.add_feature(tanga_feature, facecolor = 'none', linewidth = 0.5)
     
