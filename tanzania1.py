@@ -19,6 +19,8 @@ from cartopy.io.shapereader import Reader
 from cartopy.feature import ShapelyFeature
 import cartopy.feature as cfeature
 
+import iris
+
 def tanzania_plot(ax, high, no_x = False, no_y = False):   
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
@@ -73,3 +75,33 @@ def tanga_plot(ax, high):
         ax.add_feature(coast_10m, facecolor = 'none')
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
+        
+def extract_tanz(cube, circ = True):
+    def tanzania_lat(input):
+        return -12.0 < input < -0.75
+    
+    if circ == False:
+        def tanzania_long(input):
+            return 28. < input < 42.
+    else:
+        def tanzania_long(input):
+            return 388. < input < 402.
+    
+    out = cube.extract(iris.Constraint(latitude = tanzania_lat, 
+                                        longitude = tanzania_long))
+    return out
+
+def extract_tanga(cube, circ = True):
+    def tanga_lat(input):
+        return -6.5 < input < -3.5
+  
+    if circ == False:
+        def tanga_long(input):
+            return 36.8 < input < 39.39
+    else:
+        def tanga_long(input):
+            return 396.8 < input < 399.4
+    
+    out = cube.extract(iris.Constraint(latitude = tanga_lat, 
+                                        longitude = tanga_long))
+    return out
