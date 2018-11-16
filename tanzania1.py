@@ -105,3 +105,24 @@ def extract_tanga(cube, circ = True):
     out = cube.extract(iris.Constraint(latitude = tanga_lat, 
                                         longitude = tanga_long))
     return out
+
+def get_cbax(ax, orientation = 'horizontal', last_ax = []):
+    ''' Find placement of colourbar axis so it lines up with subplots
+    #left, bottom, width, height'''
+    
+    place = ax.get_position()
+    
+    if len(last_ax) > 0:
+        ax2 = last_ax[0]
+        place2 = ax2.get_position()
+        cbax = fig.add_axes([place.x0, place.y0 - 0.03, place2.x1 - place.x0, 0.03])
+    else:
+        cbax = fig.add_axes([place.x0, place.y0 - 0.03, place.x1 - place.x0, 0.03])
+        
+    if orientation == 'vertical' and len(last_ax) == 0:
+        cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place.y1 - place.y0])
+    elif orientation == 'vertical':
+        ax2 = last_ax[0]
+        place2 = ax2.get_position()
+        cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place2.y1 - place.y0])
+    return cbax
