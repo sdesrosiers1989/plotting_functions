@@ -51,7 +51,7 @@ def tanzania_plot(ax, high, no_x = False, no_y = False):
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
 
-def tanga_plot(ax, high, no_x = False, no_y = True, subset = False):   
+def tanga_plot(ax, high, no_x = False, no_y = False, subset = False):   
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
