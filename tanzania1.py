@@ -116,7 +116,7 @@ def extract_tanga(cube, circ = True):
                                         longitude = tanga_long))
     return out
 
-def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.3, h_w = 0.3):
+def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w = 0.03):
     ''' Find placement of colourbar axis so it lines up with subplots
     #left, bottom, width, height'''
           
