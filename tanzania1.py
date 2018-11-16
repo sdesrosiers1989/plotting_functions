@@ -123,16 +123,19 @@ def get_cbax(fig, ax, orientation = 'horizontal', last_ax = []):
     place = ax.get_position()
     
     if len(last_ax) > 0:
+        print('More than two axes...')
         ax2 = last_ax[0]
         place2 = ax2.get_position()
+        print(place2.y0)
         cbax = fig.add_axes([place.x0, place.y0 - 0.03, place2.x1 - place.x0, 0.03])
+        print(place2.y0-0.03)
     else:
         cbax = fig.add_axes([place.x0, place.y0 - 0.03, place.x1 - place.x0, 0.03])
         
-    if orientation == 'vertical' and len(last_ax) == 0:
-        cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place.y1 - place.y0])
-    elif orientation == 'vertical':
-        ax2 = last_ax[0]
-        place2 = ax2.get_position()
-        cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place2.y1 - place.y0])
+    #if orientation == 'vertical' and len(last_ax) == 0:
+    #    cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place.y1 - place.y0])
+    #elif orientation == 'vertical':
+    #    ax2 = last_ax[0]
+    #    place2 = ax2.get_position()
+    #    cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place2.y1 - place.y0])
     return cbax
