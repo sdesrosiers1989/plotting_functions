@@ -51,7 +51,7 @@ def tanzania_plot(ax, high, no_x = False, no_y = False):
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
 
-def tanga_plot(ax, high):   
+def tanga_plot(ax, high, no_x = False, no_y = True, subset = False):   
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
@@ -62,12 +62,8 @@ def tanga_plot(ax, high):
     
     ax.add_feature(cartopy.feature.BORDERS, linewidth = 0.5)
     # set up latitude and longtiude ticks and format
-    ax.set_yticks([-6, -5, -4], crs=ccrs.PlateCarree())
-    lat_formatter = LatitudeFormatter()
-    ax.yaxis.set_major_formatter(lat_formatter)
-    ax.set_xticks([37,38, 39], crs=ccrs.PlateCarree())
-    lon_formatter = LongitudeFormatter()
-    ax.xaxis.set_major_formatter(lon_formatter)
+    
+    
     # add tanga shapefile
     ax.add_feature(tanga_feature, facecolor = 'none', linewidth = 0.5)
     
@@ -75,6 +71,20 @@ def tanga_plot(ax, high):
         ax.add_feature(coast_10m, facecolor = 'none')
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
+    
+    if no_y == False:
+        ax.set_yticks([-6, -5, -4], crs=ccrs.PlateCarree())
+        lat_formatter = LatitudeFormatter()
+        ax.yaxis.set_major_formatter(lat_formatter)
+    
+    if no_x == False:
+        ax.set_xticks([37,38, 39], crs=ccrs.PlateCarree())
+        lon_formatter = LongitudeFormatter()
+        ax.xaxis.set_major_formatter(lon_formatter)
+        
+    if subset == False:
+        ax.set_ylim([-6.25,-3.75])
+        ax.set_xlim([-1, 1.25])
         
 def extract_tanz(cube, circ = True):
     def tanzania_lat(input):
