@@ -116,29 +116,23 @@ def extract_tanga(cube, circ = True):
                                         longitude = tanga_long))
     return out
 
-def get_cbax(fig, ax, orientation = 'horizontal', last_ax = []):
+def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.3, h_w = 0.3):
     ''' Find placement of colourbar axis so it lines up with subplots
     #left, bottom, width, height'''
-    
-    print('First ax position: ', ax.get_position().y0)
-        
+          
     place = ax.get_position()
     
     if len(last_ax) > 0:
-        print('More than two axes...')
         ax2 = last_ax[0]
         place2 = ax2.get_position()
-        print('First Ax bottom: ', place.y0)
-        cbax = fig.add_axes([place.x0, place.y0 - 0.03, place2.x1 - place.x0, 0.03])
-        print('Placing cbax: ', place2.y0-0.03)
+        cbax = fig.add_axes([place.x0, place.y0 - dif, place2.x1 - place.x0, h_w])
     else:
-        print('Only one ax')
-        cbax = fig.add_axes([place.x0, place.y0 - 0.03, place.x1 - place.x0, 0.03])
+        cbax = fig.add_axes([place.x0, place.y0 - dif, place.x1 - place.x0, h_w])
         
-    #if orientation == 'vertical' and len(last_ax) == 0:
-    #    cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place.y1 - place.y0])
-    #elif orientation == 'vertical':
-    #    ax2 = last_ax[0]
-    #    place2 = ax2.get_position()
-    #    cbax = fig.add_axes([place.x1 + 0.03, place.y0, 0.03, place2.y1 - place.y0])
+    if orientation == 'vertical' and len(last_ax) == 0:
+        cbax = fig.add_axes([place.x1 + dif, place.y0, h_w, place.y1 - place.y0])
+    elif orientation == 'vertical':
+        ax2 = last_ax[0]
+        place2 = ax2.get_position()
+        cbax = fig.add_axes([place.x1 + dif, place.y0, h_w, place2.y1 - place.y0])
     return cbax
