@@ -120,16 +120,19 @@ def get_cbax(fig, ax, orientation = 'horizontal', last_ax = []):
     ''' Find placement of colourbar axis so it lines up with subplots
     #left, bottom, width, height'''
     
+    print('First ax position: ', ax.get_position().y0)
+        
     place = ax.get_position()
     
     if len(last_ax) > 0:
         print('More than two axes...')
         ax2 = last_ax[0]
         place2 = ax2.get_position()
-        print(place2.y0)
+        print('First Ax bottom: ', place.y0)
         cbax = fig.add_axes([place.x0, place.y0 - 0.03, place2.x1 - place.x0, 0.03])
-        print(place2.y0-0.03)
+        print('Placing cbax: ', place2.y0-0.03)
     else:
+        print('Only one ax')
         cbax = fig.add_axes([place.x0, place.y0 - 0.03, place.x1 - place.x0, 0.03])
         
     #if orientation == 'vertical' and len(last_ax) == 0:
