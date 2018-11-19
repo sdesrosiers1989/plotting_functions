@@ -122,12 +122,13 @@ def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w 
           
     place = ax.get_position()
     
-    if len(last_ax) > 0:
-        ax2 = last_ax[0]
-        place2 = ax2.get_position()
-        cbax = fig.add_axes([place.x0, place.y0 - dif, place2.x1 - place.x0, h_w])
-    else:
-        cbax = fig.add_axes([place.x0, place.y0 - dif, place.x1 - place.x0, h_w])
+    if orientation == 'horizontal':
+        if len(last_ax) > 0 :
+            ax2 = last_ax[0]
+            place2 = ax2.get_position()
+            cbax = fig.add_axes([place.x0, place.y0 - dif, place2.x1 - place.x0, h_w])
+        else:
+            cbax = fig.add_axes([place.x0, place.y0 - dif, place.x1 - place.x0, h_w])
         
     if orientation == 'vertical' and len(last_ax) == 0:
         cbax = fig.add_axes([place.x1 + dif, place.y0, h_w, place.y1 - place.y0])
