@@ -87,7 +87,7 @@ def tanga_plot(ax, high, no_x = False, no_y = False, subset = False):
         ax.set_xlim([-1, 1.25])
         
 def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
-                yticks = [-10, -6, -2], xticks =[29, 34, 39]):   
+                xticks = [10,20,30,40], yticks = [0, -10, -20, -30]):   
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
