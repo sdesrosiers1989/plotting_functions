@@ -139,10 +139,10 @@ def extract_tanga(cube, circ = True):
   
     if circ == False:
         def tanga_long(input):
-            return 36.8 < input < 39.39
+            return 36.7 < input < 39.4
     else:
         def tanga_long(input):
-            return 396.8 < input < 399.4
+            return 396.7 < input < 399.4
     
     out = cube.extract(iris.Constraint(latitude = tanga_lat, 
                                         longitude = tanga_long))
