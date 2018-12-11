@@ -83,7 +83,7 @@ def tanga_plot(ax, high, no_x = False, no_y = False, subset = False):
         ax.xaxis.set_major_formatter(lon_formatter)
         
     if subset == False:
-        ax.set_ylim([-6.25,-3.75])
+        ax.set_ylim([-6.4,-3.6])
         ax.set_xlim([-1, 1.25])
         
 def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
