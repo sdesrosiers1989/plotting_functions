@@ -85,6 +85,29 @@ def tanga_plot(ax, high, no_x = False, no_y = False, subset = False):
     if subset == False:
         ax.set_ylim([-6.4,-3.6])
         ax.set_xlim([-1, 1.25])
+
+def mal_plot(ax, high, no_x = False, no_y = False):   
+    
+    coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
+                                         edgecolor = 'black')
+    
+    ax.add_feature(cartopy.feature.BORDERS, linewidth = 0.5)
+    # set up latitude and longtiude ticks and format
+    
+    if no_y == False:
+        ax.set_yticks([-16, -13, -10], crs=ccrs.PlateCarree())
+        lat_formatter = LatitudeFormatter()
+        ax.yaxis.set_major_formatter(lat_formatter)
+    
+    if no_x == False:
+        ax.set_xticks([33, 35], crs=ccrs.PlateCarree())
+        lon_formatter = LongitudeFormatter()
+        ax.xaxis.set_major_formatter(lon_formatter)
+    
+    if high == True:
+        ax.add_feature(coast_10m, facecolor = 'none')
+    else:
+        ax.add_feature(cartopy.feature.COASTLINE)
         
 def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
                 xticks = [10,20,30,40], yticks = [0, -10, -20, -30]):   
@@ -146,6 +169,21 @@ def extract_tanga(cube, circ = True):
     
     out = cube.extract(iris.Constraint(latitude = tanga_lat, 
                                         longitude = tanga_long))
+    return out
+
+def extract_mal(cube, circ = True):
+    def mal_lat(input):
+        return -17.3 < input < -8.9
+  
+    if circ == False:
+        def mal_long(input):
+            return 32.3 < input < 36.1
+    else:
+        def mal_long(input):
+            return 392.3 < input < 396.1
+    
+    out = cube.extract(iris.Constraint(latitude = mal_lat, 
+                                        longitude = mal_long))
     return out
 
 def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w = 0.03):
