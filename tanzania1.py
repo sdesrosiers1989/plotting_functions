@@ -26,7 +26,7 @@ def tanzania_plot(ax, high, no_x = False, no_y = False):
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
 
-    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga'
+    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
     tanga_feature = ShapelyFeature(Reader(fname).geometries(),
                                    ccrs.PlateCarree(), edgecolor = 'black')
     
@@ -56,7 +56,7 @@ def tanga_plot(ax, high, no_x = False, no_y = False, subset = False):
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
 
-    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga'
+    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
     tanga_feature = ShapelyFeature(Reader(fname).geometries(),
                                    ccrs.PlateCarree(), edgecolor = 'black')
     
@@ -115,7 +115,7 @@ def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
 
-    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga'
+    fname = r'/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
     tanga_feature = ShapelyFeature(Reader(fname).geometries(),
                                    ccrs.PlateCarree(), edgecolor = 'black')
     
