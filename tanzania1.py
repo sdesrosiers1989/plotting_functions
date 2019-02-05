@@ -109,6 +109,22 @@ def mal_plot(ax, high, no_x = False, no_y = False):
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
         
+def zam_plot(ax, no_x = False, no_y = False):   
+        
+    ax.add_feature(cartopy.feature.BORDERS, linewidth = 0.5)
+    # set up latitude and longtiude ticks and format
+    
+    if no_y == False:
+        ax.set_yticks([-18, -13, -8], crs=ccrs.PlateCarree())
+        lat_formatter = LatitudeFormatter()
+        ax.yaxis.set_major_formatter(lat_formatter)
+    
+    if no_x == False:
+        ax.set_xticks([21, 27, 33], crs=ccrs.PlateCarree())
+        lon_formatter = LongitudeFormatter()
+        ax.xaxis.set_major_formatter(lon_formatter)
+
+        
 def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
                 xticks = [10,20,30,40], yticks = [0, -10, -20, -30]):   
     
@@ -141,7 +157,8 @@ def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
     else:
         ax.add_feature(cartopy.feature.COASTLINE)
         
-def extract_tanz(cube, circ = True):
+def extract_tanz(cube, circ = True, rot = False):
+    
     def tanzania_lat(input):
         return -12.0 < input < -0.75
     
@@ -152,11 +169,15 @@ def extract_tanz(cube, circ = True):
         def tanzania_long(input):
             return 388. < input < 402.
     
-    out = cube.extract(iris.Constraint(latitude = tanzania_lat, 
-                                        longitude = tanzania_long))
+    if rot == True:
+        out = cube.extract(iris.Constraint(grid_latitude = tanzania_lat,
+                                           grid_longitude = tanzania_long))
+    else:
+        out = cube.extract(iris.Constraint(latitude = tanzania_lat, 
+                                            longitude = tanzania_long))
     return out
 
-def extract_tanga(cube, circ = True):
+def extract_tanga(cube, circ = True, rot = False):
     def tanga_lat(input):
         return -6.5 < input < -3.5
   
@@ -167,8 +188,12 @@ def extract_tanga(cube, circ = True):
         def tanga_long(input):
             return 396.7 < input < 399.7
     
-    out = cube.extract(iris.Constraint(latitude = tanga_lat, 
-                                        longitude = tanga_long))
+    if rot == True:
+        out = cube.extract(iris.Constraint(grid_latitude = tanga_lat,
+                                           grid_longitude = tanga_long))
+    else:
+        out = cube.extract(iris.Constraint(latitude = tanga_lat, 
+                                            longitude = tanga_long))
     return out
 
 def extract_mal(cube, circ = True):
