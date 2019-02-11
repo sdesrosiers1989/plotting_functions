@@ -19,6 +19,8 @@ from cartopy.io.shapereader import Reader
 from cartopy.feature import ShapelyFeature
 import cartopy.feature as cfeature
 
+from shapely.geometry.polygon import LinearRing
+
 import iris
 
 def tanzania_plot(ax, high, no_x = False, no_y = False):   
@@ -232,3 +234,25 @@ def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w 
         place2 = ax2.get_position()
         cbax = fig.add_axes([place.x1 + dif, place2.y0, h_w, place.y1 - place2.y0])
     return cbax
+
+def get_rec(min_lat, max_lat, min_lon, max_lon, dats = []):
+    #get data within a rectangle, and get coordinates needed for plotting rectangle outline
+    def ex_lat(input):
+        return min_lat <= input <= max_lat
+    
+    def ex_long(input):
+        return min_lon <= input <= max_lon
+    
+    ex1 = iris.Constraint(latitude = ex_lat, longitude = ex_long)
+    
+    out_list = []
+    for item in dats:
+        x = item.extract(ex1)
+        x = x.collapsed(['latitude', 'longitude'], iris.analysis.MEAN)
+        out_list.append(x)
+        
+    lons = [max_lon, max_lon, min_lon, min_lon]
+    lats = [min_lat, max_lat, max_lat, min_lat]
+    ring = LinearRing(list(zip(lons, lats)))
+    
+    return out_list, ring
