@@ -213,6 +213,21 @@ def extract_mal(cube, circ = True):
                                         longitude = mal_long))
     return out
 
+def extract_zam(cube, circ = True):
+    def lat(input):
+        return -19.5 < input < -7.5
+  
+    if circ == False:
+        def long(input):
+            return 20.5 < input < 34.
+    else:
+        def long(input):
+            return 381. < input < 394.
+    
+    out = cube.extract(iris.Constraint(latitude = lat, 
+                                        longitude = long))
+    return out
+
 def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w = 0.03):
     ''' Find placement of colourbar axis so it lines up with subplots
     #left, bottom, width, height'''
