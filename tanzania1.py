@@ -162,7 +162,7 @@ def plot_africa(ax, high, no_x = False, no_y = False, Tanga = True,
 def extract_tanz(cube, circ = True, rot = False):
     
     def tanzania_lat(input):
-        return -12.0 < input < -0.75
+        return -12.0 <= input <= -0.75
     
     if circ == False:
         def tanzania_long(input):
