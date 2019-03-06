@@ -250,7 +250,7 @@ def get_cbax(fig, ax, orientation = 'horizontal', last_ax = [], dif = 0.03, h_w 
         cbax = fig.add_axes([place.x1 + dif, place2.y0, h_w, place.y1 - place2.y0])
     return cbax
 
-def get_rec(min_lat, max_lat, min_lon, max_lon, dats = []):
+def get_rec(min_lat, max_lat, min_lon, max_lon, dats = [], grid = False):
     #get data within a rectangle, and get coordinates needed for plotting rectangle outline
     def ex_lat(input):
         return min_lat <= input <= max_lat
@@ -258,12 +258,18 @@ def get_rec(min_lat, max_lat, min_lon, max_lon, dats = []):
     def ex_long(input):
         return min_lon <= input <= max_lon
     
-    ex1 = iris.Constraint(latitude = ex_lat, longitude = ex_long)
+    if grid == True:
+        ex1 = iris.Constraint(grid_latitude = ex_lat, grid_longitude = ex_long)
+    else:
+        ex1 = iris.Constraint(latitude = ex_lat, longitude = ex_long)
     
     out_list = []
     for item in dats:
         x = item.extract(ex1)
-        x = x.collapsed(['latitude', 'longitude'], iris.analysis.MEAN)
+        if grid == True:
+            x = x.collapsed(['grid_latitude', 'grid_longitude'], iris.analysis.MEAN)
+        else:
+            x = x.collapsed(['latitude', 'longitude'], iris.analysis.MEAN)
         out_list.append(x)
         
     lons = [max_lon, max_lon, min_lon, min_lon]
@@ -271,3 +277,10 @@ def get_rec(min_lat, max_lat, min_lon, max_lon, dats = []):
     ring = LinearRing(list(zip(lons, lats)))
     
     return out_list, ring
+
+def model(cube):
+    mod = cube.coord('model').points[0]
+    return mod
+def gcm(cube):
+    mod = cube.coord('gcm').points[0]
+    return mod
