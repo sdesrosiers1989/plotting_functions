@@ -284,3 +284,39 @@ def model(cube):
 def gcm(cube):
     mod = cube.coord('gcm').points[0]
     return mod
+
+def poly_mask(cube, country):
+    import numpy as np
+    import matplotlib.pyplot as plt 
+    import fiona
+    from shapely.geometry import MultiPoint, shape
+    
+    if country == 'tanz':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__TZA.shp'
+    if country == 'zam':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__ZMB.shp'
+    if country == 'mal':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__MWI.shp'
+    if country == 'sa':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__ZAF.shp'
+    if country == 'tanz_notanga':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_TZA_noTanga.shp'
+    if country == 'tanga':
+        path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
+
+
+    
+    file = fiona.open(path)
+    first = next(iter(file))
+    shape_geom = shape(first['geometry'])
+    
+    mask = np.ones(cube.shape, dtype = bool)
+    x, y = np.meshgrid(cube.coord(axis='X').points, cube.coord(axis='Y').points)
+    lat_lon_points = np.vstack([x.flat, y.flat])
+    points = MultiPoint(lat_lon_points.T)
+    
+    #Find all points within the region of interest (a Shapely geometry)
+    indices = [i for i, p in enumerate(points) if shape_geom.contains(p)]
+    mask[np.unravel_index(indices, mask.shape)] = False
+    plt.contourf(mask)
+    return mask
