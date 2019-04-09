@@ -21,7 +21,14 @@ import cartopy.feature as cfeature
 
 from shapely.geometry.polygon import LinearRing
 
+import numpy as np
+
 import iris
+
+def modlist(cube_list):
+    for i in np.arange(0, len(cube_list)):
+        print(i, gcm(cube_list[i]), model(cube_list[i]))
+
 
 def tanzania_plot(ax, high, no_x = False, no_y = False):   
     
