@@ -310,7 +310,8 @@ def poly_mask(cube, country):
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_TZA_noTanga.shp'
     if country == 'tanga':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
-
+    else:
+        path = country
 
     
     file = fiona.open(path)
@@ -327,3 +328,4 @@ def poly_mask(cube, country):
     mask[np.unravel_index(indices, mask.shape)] = False
     plt.contourf(mask)
     return mask
+
