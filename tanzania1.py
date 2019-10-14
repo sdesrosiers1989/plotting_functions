@@ -300,15 +300,15 @@ def poly_mask(cube, country):
     
     if country == 'tanz':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__TZA.shp'
-    if country == 'zam':
+    elif country == 'zam':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__ZMB.shp'
-    if country == 'mal':
+    elif country == 'mal':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__MWI.shp'
-    if country == 'sa':
+    elif country == 'sa':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_SOV_A3__ZAF.shp'
-    if country == 'tanz_notanga':
+    elif country == 'tanz_notanga':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Natural_earth_countryboundary/africap_countries_TZA_noTanga.shp'
-    if country == 'tanga':
+    elif country == 'tanga':
         path = '/nfs/see-fs-02_users/earsch/Documents/Leeds/Tanga Project/Data/GIS_Maps/Tanga.shp'
     else:
         path = country
