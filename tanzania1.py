@@ -30,7 +30,7 @@ def modlist(cube_list):
         print(i, gcm(cube_list[i]), model(cube_list[i]))
 
 
-def tanzania_plot(ax, high, no_x = False, no_y = False):   
+def tanzania_plot(ax, high, no_x = False, no_y = False, Tanga = True):   
     
     coast_10m = cfeature.NaturalEarthFeature('physical', 'coastline', '10m',
                                          edgecolor = 'black')
@@ -53,7 +53,8 @@ def tanzania_plot(ax, high, no_x = False, no_y = False):
         ax.xaxis.set_major_formatter(lon_formatter)
         
     # add tanga shapefile
-    ax.add_feature(tanga_feature, facecolor = 'none', linewidth = 0.5)
+    if Tanga == True:
+        ax.add_feature(tanga_feature, facecolor = 'none', linewidth = 0.5)
     
     if high == True:
         ax.add_feature(coast_10m, facecolor = 'none')
